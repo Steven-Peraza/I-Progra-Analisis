@@ -10,6 +10,6 @@ namespace I_Progra_Analisis
     {
         private int numero;
         private int[,] lados;
-        private int a = 1;
+
     }
 }
