@@ -8,6 +8,6 @@ namespace I_Progra_Analisis
 {
     class Pieza
     {
-        private String = "asdjkajd"
+        private String asd = "asdjkajd";
     }
 }
