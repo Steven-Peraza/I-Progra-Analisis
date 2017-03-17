@@ -8,8 +8,6 @@ namespace I_Progra_Analisis
 {
     class Pieza
     {
-        private int numero;
-        private int[,] lados;
-
+        private String = "asdjkajd"
     }
 }
