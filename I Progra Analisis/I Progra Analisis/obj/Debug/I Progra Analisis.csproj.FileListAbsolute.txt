@@ -1,2 +1,8 @@
 c:\users\misa\documents\visual studio 2015\Projects\I Progra Analisis\I Progra Analisis\bin\Debug\I Progra Analisis.exe.config
 C:\Users\Steven\Desktop\TEC\Progras\Analisis\I Progra\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\bin\Debug\I Progra Analisis.exe.config
+C:\Users\Misa\Documents\Progras\Analisis 1\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\bin\Debug\I Progra Analisis.exe.config
+C:\Users\Misa\Documents\Progras\Analisis 1\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\bin\Debug\I Progra Analisis.exe
+C:\Users\Misa\Documents\Progras\Analisis 1\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\bin\Debug\I Progra Analisis.pdb
+C:\Users\Misa\Documents\Progras\Analisis 1\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\obj\Debug\I Progra Analisis.csprojResolveAssemblyReference.cache
+C:\Users\Misa\Documents\Progras\Analisis 1\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\obj\Debug\I Progra Analisis.exe
+C:\Users\Misa\Documents\Progras\Analisis 1\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\obj\Debug\I Progra Analisis.pdb

@@ -8,6 +8,8 @@ namespace I_Progra_Analisis
 {
     class Pieza
     {
-        int num;
+        private int numero;
+        private int[,] lados;
+        private int a = 1;
     }
 }
