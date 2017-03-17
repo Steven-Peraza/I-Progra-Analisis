@@ -8,6 +8,7 @@ namespace I_Progra_Analisis
 {
     class Pieza
     {
-        int num;
+        int num = 12313;
+        String hola = "ojala esto funque";
     }
 }
