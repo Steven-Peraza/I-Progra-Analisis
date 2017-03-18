@@ -15,7 +15,7 @@ namespace I_Progra_Analisis
             Tetravex tetravex = new Tetravex(n);
 
 
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++) //Imprime piezas
             {
                 for (int j = 0; j < n; j++)
                 {
