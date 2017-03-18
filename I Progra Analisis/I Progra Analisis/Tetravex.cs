@@ -15,6 +15,7 @@ namespace I_Progra_Analisis
         {
             this._tamaño = tamaño;
             this._tablero = new Pieza[tamaño, tamaño];
+            generarTablero();
         }
 
         public void setPieza(int fila, int columna, Pieza pieza)
@@ -24,6 +25,11 @@ namespace I_Progra_Analisis
         public Pieza getPieza(int fila, int columna)
         {
             return this._tablero[fila, columna];
+        }
+
+        public void generarTablero()
+        {
+
         }
     }
 }

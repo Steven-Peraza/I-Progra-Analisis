@@ -10,6 +10,9 @@ namespace I_Progra_Analisis
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Digite el tamaño que desea que tenga el Tetravex \n");
+            int n = Convert.ToInt32(Console.ReadLine());
+            Tetravex tetravex = new Tetravex(n);
         }
     }
 }
