@@ -32,7 +32,7 @@ namespace I_Progra_Analisis
 
         public void setLado(int lado, int valor)//Si se quisiera poner un lado de la pieza manualmente
         {
-            this._lados[lado] = valor;
+            this._lados[lado-1] = valor;
         }
         public int getLado(int lado)
         {

@@ -13,6 +13,22 @@ namespace I_Progra_Analisis
             Console.WriteLine("Digite el tamaño que desea que tenga el Tetravex \n");
             int n = Convert.ToInt32(Console.ReadLine());
             Tetravex tetravex = new Tetravex(n);
+
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    Console.WriteLine("Pieza "+i+","+j);
+                    Pieza pieza = tetravex.getPieza(i,j);
+                    for (int k = 1; k <= 4; k++)
+                    {
+                        Console.WriteLine(pieza.getLado(k));
+                    }
+                    Console.ReadKey();
+                }
+
+            }
         }
     }
 }
