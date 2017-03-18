@@ -10,7 +10,7 @@ namespace I_Progra_Analisis
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Digite el tamaño que desea que tenga el Tetravex \n");
+            Console.WriteLine("Digite el tamaño que desea que tenga el Tetravex");
             int n = Convert.ToInt32(Console.ReadLine());
             Tetravex tetravex = new Tetravex(n);
 
@@ -21,13 +21,12 @@ namespace I_Progra_Analisis
                 {
                     Console.WriteLine("Pieza "+i+","+j);
                     Pieza pieza = tetravex.getPieza(i,j);
-                    for (int k = 1; k <= 4; k++)
+                    for (int k = 0; k < 4; k++)
                     {
                         Console.WriteLine(pieza.getLado(k));
                     }
                     Console.ReadKey();
                 }
-
             }
         }
     }
