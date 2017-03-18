@@ -11,9 +11,9 @@ namespace I_Progra_Analisis
         private int _numero;
         private int[] _lados;
 
-        public Pieza()
+        public Pieza(int numero)
         {
-            this._numero = 0;
+            this._numero = numero;
             this._lados = new int[4];
             for (int i = 0; i < 4; i++)
             {
@@ -36,7 +36,19 @@ namespace I_Progra_Analisis
         }
         public int getLado(int lado)
         {
-            return this._lados[lado];
+            return this._lados[lado-1];
+        }
+
+        public void setLados(int[] lados)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                this._lados[i] = lados[i];
+            }
+        }
+        public int[] getLados()
+        {
+            return this._lados;
         }
     }
 

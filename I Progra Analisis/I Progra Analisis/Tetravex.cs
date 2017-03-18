@@ -10,6 +10,7 @@ namespace I_Progra_Analisis
     {
         private Pieza[,] _tablero;
         private int _tamaño;
+        private Random _random = new Random();
 
         public Tetravex(int tamaño)
         {
@@ -27,9 +28,23 @@ namespace I_Progra_Analisis
             return this._tablero[fila, columna];
         }
 
-        public void generarTablero()
+        public void generarTablero()//por ahora solo genera el tablero con todos los numeros de las piezas random
         {
-
+            for (int i = 0; i < this._tamaño * this._tamaño; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Pieza pieza = new Pieza(i);
+                    for (int k = 0; k < 4; k++)
+                    {
+                        int numeroRandom = _random.Next(1, 10);
+                        pieza.setLado(k + 1, numeroRandom);
+                    }
+                    this._tablero[i, j] = pieza;
+                }
+                
+            }
+                
         }
     }
 }
