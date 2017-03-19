@@ -11,8 +11,7 @@ namespace I_Progra_Analisis
         private Pieza[,] _tablero;
         private int _tamaño;
         private int[] _solucion;//Orden de la solucion
-        //private int[,] _posicionNumero;// ejemplo buscar el numero 3 estaria en la posicion2 y dentro tendria las posiciones en la matriz
-        private Tuple<int,int>[] _posicionNumero;
+        private Tuple<int,int>[] _posicionNumero; //Posiciones de un numero
 
         private Random _random = new Random();
         int numeroRandom;
@@ -24,7 +23,6 @@ namespace I_Progra_Analisis
             this._tablero = new Pieza[tamaño, tamaño];
             this._posicionNumero = new Tuple<int, int>[this._tamaño * this._tamaño];
             this._solucion = new int[this._tamaño*this._tamaño];
-            //this._posicionNumero = new int[this._tamaño * this._tamaño,2];
             GenerarTablero();
             Revolver();
         }
@@ -37,7 +35,7 @@ namespace I_Progra_Analisis
         {
             return this._tablero[fila, columna];
         }
-        public Tuple<int,int> GetPosicionNumero(int numero)
+        public Tuple<int,int> GetPosicionNumero(int numero)//ejemplo buscar el numero 3 estaria en la posicion 2 y dentro tendria las posiciones en la matriz
         {
             return this._posicionNumero[numero-1];
         }
@@ -112,9 +110,6 @@ namespace I_Progra_Analisis
         }
         public void Revolver()//cambia variables numero entre si, y guarda la convinacion en solucion
         {
-            /*for (int m = 0; m < this._tamaño * this._tamaño; m++)
-                Console.WriteLine(this._solucion[m]);
-            Console.ReadKey();*/
             cont = 0;
             for (int i = this._solucion.Length; i > 0; i--)
             {
