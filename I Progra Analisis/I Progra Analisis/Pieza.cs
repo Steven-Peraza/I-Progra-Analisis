@@ -9,7 +9,7 @@ namespace I_Progra_Analisis
     class Pieza
     {
         private int _numero;
-        private int[] _lados;
+        private int[] _lados;  //arriba,izquierda,abajo,derecha
 
         public Pieza(int numero)
         {
@@ -21,32 +21,32 @@ namespace I_Progra_Analisis
             }
         }
 
-        public void setNumero(int numero)
+        public void SetNumero(int numero)
         {
             this._numero = numero;
         }
-        public int getNumero()
+        public int GetNumero()
         {
             return this._numero;
         }
 
-        public void setLado(int lado, int valor)//Si se quisiera poner un lado de la pieza manualmente
+        public void SetLado(int lado, int valor)//Si se quisiera poner un lado de la pieza manualmente
         {
             this._lados[lado] = valor;
         }
-        public int getLado(int lado)
+        public int GetLado(int lado)
         {
             return this._lados[lado];
         }
 
-        public void setLados(int[] lados)
+        public void SetLados(int[] lados)
         {
             for (int i = 0; i < 4; i++)
             {
                 this._lados[i] = lados[i];
             }
         }
-        public int[] getLados()
+        public int[] GetLados()
         {
             return this._lados;
         }
