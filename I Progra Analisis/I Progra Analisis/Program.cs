@@ -10,6 +10,10 @@ namespace I_Progra_Analisis
     {
         static void Main(string[] args)
         {
+            Console.WriteLine(8/3);
+            Console.ReadKey();
+            Console.WriteLine(8%3);
+            Console.ReadKey();
             Console.WriteLine("Digite el tamaño que desea que tenga el Tetravex");
             int n = Convert.ToInt32(Console.ReadLine());
             Tetravex tetravex = new Tetravex(n);
@@ -28,7 +32,10 @@ namespace I_Progra_Analisis
                     }
                     Console.ReadKey();
                 }
+                
             }
+            Console.WriteLine("El numero 3 esta en: "+tetravex.GetPosicionNumero(3));
+            Console.ReadKey();
         }
     }
 }

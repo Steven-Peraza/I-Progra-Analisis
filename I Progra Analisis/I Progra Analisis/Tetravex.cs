@@ -10,7 +10,10 @@ namespace I_Progra_Analisis
     {
         private Pieza[,] _tablero;
         private int _tamaño;
-        private int[] _solucion;
+        private int[] _solucion;//Orden de la solucion
+        //private int[,] _posicionNumero;// ejemplo buscar el numero 3 estaria en la posicion2 y dentro tendria las posiciones en la matriz
+        private Tuple<int,int>[] _posicionNumero;
+
         private Random _random = new Random();
         int numeroRandom;
         int cont;
@@ -19,7 +22,9 @@ namespace I_Progra_Analisis
         {
             this._tamaño = tamaño;
             this._tablero = new Pieza[tamaño, tamaño];
+            this._posicionNumero = new Tuple<int, int>[this._tamaño * this._tamaño];
             this._solucion = new int[this._tamaño*this._tamaño];
+            //this._posicionNumero = new int[this._tamaño * this._tamaño,2];
             GenerarTablero();
             Revolver();
         }
@@ -31,6 +36,10 @@ namespace I_Progra_Analisis
         public Pieza GetPieza(int fila, int columna)
         {
             return this._tablero[fila, columna];
+        }
+        public Tuple<int,int> GetPosicionNumero(int numero)
+        {
+            return this._posicionNumero[numero-1];
         }
 
         public void GenerarTablero()//genera el tablero ordenado y resuelto
@@ -101,7 +110,7 @@ namespace I_Progra_Analisis
                 }
             }
         }
-        public void Revolver()//cambia variables numero entre si, y guarda la convinacion en la solucion
+        public void Revolver()//cambia variables numero entre si, y guarda la convinacion en solucion
         {
             /*for (int m = 0; m < this._tamaño * this._tamaño; m++)
                 Console.WriteLine(this._solucion[m]);
@@ -119,13 +128,10 @@ namespace I_Progra_Analisis
                 for (int j = 0; j < this._tamaño; j++)
                 {
                     this._tablero[i, j].SetNumero(this._solucion[cont]);
+                    this._posicionNumero[this._solucion[cont] - 1] = new Tuple<int, int>(i, j);
                     cont += 1;
                 }
             }
-                    /*for (int m = 0; m < this._tamaño * this._tamaño; m++)
-                        Console.WriteLine(this._solucion[m]);
-                    Console.ReadKey();*/
-
-                }
+        }
     }
 }
