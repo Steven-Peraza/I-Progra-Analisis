@@ -10,15 +10,16 @@ namespace I_Progra_Analisis
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(8/3);
-            Console.ReadKey();
-            Console.WriteLine(8%3);
-            Console.ReadKey();
             Console.WriteLine("Digite el tamaño que desea que tenga el Tetravex");
             int n = Convert.ToInt32(Console.ReadLine());
             Tetravex tetravex = new Tetravex(n);
             Console.WriteLine("Arriba\nAbajo\nIzquierdan\nDerecha\n");
-
+            int[] _solucion = {1,2,3,4,5};
+            int[] _solucion2= new int[5];
+            //Console.WriteLine(_solucion2[1]);
+            //Console.ReadKey();
+            tetravex.Permuta("123");
+            Console.ReadKey();
 
             for (int i = 0; i < n; i++) //Imprime piezas
             {
@@ -32,7 +33,6 @@ namespace I_Progra_Analisis
                     }
                     Console.ReadKey();
                 }
-                
             }
             Console.WriteLine("El numero 5 esta en: "+tetravex.GetPosicionNumero(5));
             Console.ReadKey();

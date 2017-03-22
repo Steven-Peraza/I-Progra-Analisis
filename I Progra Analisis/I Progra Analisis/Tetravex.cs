@@ -11,6 +11,7 @@ namespace I_Progra_Analisis
         private Pieza[,] _tablero;
         private int _tamaño;
         private int[] _solucion;//Orden de la solucion
+        private int[] _solucionActual;
         private Tuple<int,int>[] _posicionNumero; //Posiciones de un numero
 
         private Random _random = new Random();
@@ -128,5 +129,82 @@ namespace I_Progra_Analisis
                 }
             }
         }
+        public void FuerzaBrutra()
+        {
+
+        }
+        /*public void Permuta(int[] s, int[] d)
+        {
+            //Iniciamos este array auxiliar para
+            //marcar los caracteres que ya combinamos
+            bool[] marcas = new bool[s.Length];
+            //Llamamos al método recursivo
+            Permuta(s, d, marcas);
+        }
+
+        public void Permuta(int[] original, int[] permutacion, bool[] marcas)
+        {
+            //Imprimimos la combinación si ya cambiamos
+            //todas las letras una vez
+            if (original.Length == permutacion.Length)
+                for (int i=0;i<permutacion.Length;i++)
+                Console.Write(permutacion[i]);
+            
+
+            for (int i = 0; i < marcas.Length; i++)
+            {
+                //Vemos si está marcada para no volverla a permutar
+                if (!marcas[i])
+                {
+                    //Marcamos el caracter que vamos a permutar
+                    marcas[i] = true;
+                    //Invocamos al metodo recursivo añadiendo
+                    //un caracter al string que permutamos
+                    for (int j = 0; i < permutacion.Length; i++)
+                    {
+                        if (permutacion[j] == 0)
+                            permutacion[j] = original[i];
+                    }
+                    Permuta(original, permutacion, marcas);
+                    //Desmarcamos el caracter para poder usarlo
+                    //en otras combinaciones
+                    marcas[i] = false;
+                }
+            }
+        }*/
+        public void Permuta(string s)
+        {
+            //Iniciamos este array auxiliar para
+            //marcar los caracteres que ya combinamos
+            bool[] marcas = new bool[s.Length];
+            //Llamamos al método recursivo
+            Permuta(s, "", marcas);
+        }
+
+        public void Permuta(string original, string permutacion, bool[] marcas)
+        {
+            //Imprimimos la combinación si ya cambiamos
+            //todas las letras una vez
+            if (original.Length == permutacion.Length)
+                Console.WriteLine(permutacion);
+
+
+            for (int i = 0; i < marcas.Length; i++)
+            {
+                //Vemos si está marcada para no volverla a permutar
+                if (!marcas[i])
+                {
+                    //Marcamos el caracter que vamos a permutar
+                    marcas[i] = true;
+                    //Invocamos al metodo recursivo añadiendo
+                    //un caracter al string que permutamos
+                    Permuta(original, permutacion + original[i], marcas);
+                    //Desmarcamos el caracter para poder usarlo
+                    //en otras combinaciones
+                    marcas[i] = false;
+                }
+            }
+        }
+
     }
 }
