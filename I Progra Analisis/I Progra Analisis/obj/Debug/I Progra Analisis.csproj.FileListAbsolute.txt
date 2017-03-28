@@ -14,3 +14,9 @@ C:\Users\JuanRa\Documents\Visual Studio 2017\Projects\C#\I-Progra-Analisis\I Pro
 C:\Users\JuanRa\Documents\Visual Studio 2017\Projects\C#\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\obj\Debug\I Progra Analisis.csprojResolveAssemblyReference.cache
 C:\Users\JuanRa\Documents\Visual Studio 2017\Projects\C#\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\obj\Debug\I Progra Analisis.exe
 C:\Users\JuanRa\Documents\Visual Studio 2017\Projects\C#\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\obj\Debug\I Progra Analisis.pdb
+C:\Users\Misa\Documents\Visual Studio 2015\Projects\Analisis\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\bin\Debug\I Progra Analisis.exe.config
+C:\Users\Misa\Documents\Visual Studio 2015\Projects\Analisis\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\obj\Debug\I Progra Analisis.exe
+C:\Users\Misa\Documents\Visual Studio 2015\Projects\Analisis\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\obj\Debug\I Progra Analisis.pdb
+C:\Users\Misa\Documents\Visual Studio 2015\Projects\Analisis\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\bin\Debug\I Progra Analisis.exe
+C:\Users\Misa\Documents\Visual Studio 2015\Projects\Analisis\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\bin\Debug\I Progra Analisis.pdb
+C:\Users\Misa\Documents\Visual Studio 2015\Projects\Analisis\I-Progra-Analisis\I Progra Analisis\I Progra Analisis\obj\Debug\I Progra Analisis.csprojResolveAssemblyReference.cache

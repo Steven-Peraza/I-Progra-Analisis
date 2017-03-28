@@ -133,10 +133,11 @@ namespace I_Progra_Analisis
         {
 
         }
-        /*public void Permuta(int[] s, int[] d)
+        /*public void Permuta(int[] s)
         {
             //Iniciamos este array auxiliar para
             //marcar los caracteres que ya combinamos
+            int[] d = new int[s.Length];
             bool[] marcas = new bool[s.Length];
             //Llamamos al método recursivo
             Permuta(s, d, marcas);
@@ -146,11 +147,14 @@ namespace I_Progra_Analisis
         {
             //Imprimimos la combinación si ya cambiamos
             //todas las letras una vez
-            if (original.Length == permutacion.Length)
-                for (int i=0;i<permutacion.Length;i++)
-                Console.Write(permutacion[i]);
-            
-
+            if (permutacion[permutacion.Length-1] != 0)
+            {
+                for (int a = 0; a < permutacion.Length; a++)
+                    Console.Write(permutacion[a]);
+                Console.WriteLine();
+                //for (int a = 0; a < permutacion.Length; a++)
+                  //  permutacion[a] = 0;
+            }
             for (int i = 0; i < marcas.Length; i++)
             {
                 //Vemos si está marcada para no volverla a permutar
@@ -160,19 +164,26 @@ namespace I_Progra_Analisis
                     marcas[i] = true;
                     //Invocamos al metodo recursivo añadiendo
                     //un caracter al string que permutamos
-                    for (int j = 0; i < permutacion.Length; i++)
+                    for (int j = 0; j < permutacion.Length; j++)
                     {
                         if (permutacion[j] == 0)
+                        {
                             permutacion[j] = original[i];
+                            break;
+                        }
                     }
+                    //Console.WriteLine("pieza = "+ original[i]);
                     Permuta(original, permutacion, marcas);
                     //Desmarcamos el caracter para poder usarlo
                     //en otras combinaciones
                     marcas[i] = false;
+                    //for (int a = 0; a < permutacion.Length; a++)
+                      //    permutacion[a] = 0;
+                        //permutacion[i] = 0;
                 }
             }
         }*/
-        public void Permuta(string s)
+        /*public void Permuta(string s)
         {
             //Iniciamos este array auxiliar para
             //marcar los caracteres que ya combinamos
@@ -180,7 +191,6 @@ namespace I_Progra_Analisis
             //Llamamos al método recursivo
             Permuta(s, "", marcas);
         }
-
         public void Permuta(string original, string permutacion, bool[] marcas)
         {
             //Imprimimos la combinación si ya cambiamos
@@ -191,6 +201,7 @@ namespace I_Progra_Analisis
 
             for (int i = 0; i < marcas.Length; i++)
             {
+                Console.WriteLine("permutacion al inicio "+permutacion);
                 //Vemos si está marcada para no volverla a permutar
                 if (!marcas[i])
                 {
@@ -198,13 +209,39 @@ namespace I_Progra_Analisis
                     marcas[i] = true;
                     //Invocamos al metodo recursivo añadiendo
                     //un caracter al string que permutamos
+                    Console.WriteLine(permutacion+ " permutacion"+ original[i]+ " lugar");
                     Permuta(original, permutacion + original[i], marcas);
+                    Console.WriteLine("permutacion despues de llamar al void " + permutacion);
                     //Desmarcamos el caracter para poder usarlo
                     //en otras combinaciones
                     marcas[i] = false;
                 }
             }
+        }*/
+        public void GeneraPermutacion(int[] vec, int k, int n)
+        {
+            int aux;
+            if (k<n)
+            {
+                for (int i=k;i<n;i++)
+                {
+                    aux = vec[k];
+                    vec[k] = vec[i];
+                    vec[i] = aux;
+                    GeneraPermutacion(vec, k + 1, n);
+                    aux = vec[k];
+                    vec[k] = vec[i];
+                    vec[i] = aux;
+                }
+            }
+            else
+            {
+                Console.WriteLine();
+                for (int i = 0; i<n; i++)
+                {
+                    Console.Write(vec[i]+"\t");
+                }
+            }
         }
-
     }
 }

@@ -14,11 +14,11 @@ namespace I_Progra_Analisis
             int n = Convert.ToInt32(Console.ReadLine());
             Tetravex tetravex = new Tetravex(n);
             Console.WriteLine("Arriba\nAbajo\nIzquierdan\nDerecha\n");
-            int[] _solucion = {1,2,3,4,5};
-            int[] _solucion2= new int[5];
+            int[] _solucion = {1,2,3,10,15};
             //Console.WriteLine(_solucion2[1]);
             //Console.ReadKey();
-            tetravex.Permuta("123");
+            //tetravex.Permuta(_solucion);
+            tetravex.GeneraPermutacion(_solucion, 0, _solucion.Length);
             Console.ReadKey();
 
             for (int i = 0; i < n; i++) //Imprime piezas
