@@ -10,15 +10,12 @@ namespace I_Progra_Analisis
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(8/3);
-            Console.ReadKey();
-            Console.WriteLine(8%3);
-            Console.ReadKey();
+            
             Console.WriteLine("Digite el tamaño que desea que tenga el Tetravex");
             int n = Convert.ToInt32(Console.ReadLine());
             Tetravex tetravex = new Tetravex(n);
-            Console.WriteLine("Arriba\nAbajo\nIzquierdan\nDerecha\n");
-
+            Console.WriteLine("Arriba\nAbajo\nIzquierda\nDerecha\n");
+            tetravex.FuerzaBruta();
 
             for (int i = 0; i < n; i++) //Imprime piezas
             {

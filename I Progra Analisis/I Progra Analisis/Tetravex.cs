@@ -128,5 +128,19 @@ namespace I_Progra_Analisis
                 }
             }
         }
+
+        public void FuerzaBruta()
+        {
+            int[] lista1 = { 1, 2, 3, 4, 5, 6 };
+            int[] lista2 = { 1, 2, 3, 4, 5, 6 };
+            if (lista1.SequenceEqual(lista2))
+            {
+                Console.WriteLine("Vamonos de joda!!!");
+            }
+            else
+            {
+                Console.WriteLine("Vamonos de joda, mentira...!!!");
+            }
+        }
     }
 }
