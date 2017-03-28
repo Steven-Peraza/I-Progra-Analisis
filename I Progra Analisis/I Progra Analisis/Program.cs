@@ -14,7 +14,10 @@ namespace I_Progra_Analisis
             int n = Convert.ToInt32(Console.ReadLine());
             Tetravex tetravex = new Tetravex(n);
             Console.WriteLine("Arriba\nAbajo\nIzquierdan\nDerecha\n");
-            int[] _solucion = {1,2,3,10,15};
+            //int[] _solucion = {1,2,3};
+            int[] _solucion = new int[n * n];
+            for (int i = 0; i < n * n; i++)
+                _solucion[i] = i + 1;
             //Console.WriteLine(_solucion2[1]);
             //Console.ReadKey();
             //tetravex.Permuta(_solucion);

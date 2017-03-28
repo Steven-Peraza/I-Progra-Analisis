@@ -11,7 +11,6 @@ namespace I_Progra_Analisis
         private Pieza[,] _tablero;
         private int _tamaño;
         private int[] _solucion;//Orden de la solucion
-        private int[] _solucionActual;
         private Tuple<int,int>[] _posicionNumero; //Posiciones de un numero
 
         private Random _random = new Random();
@@ -35,6 +34,10 @@ namespace I_Progra_Analisis
         public Pieza GetPieza(int fila, int columna)
         {
             return this._tablero[fila, columna];
+        }
+        public int[] GetSolucion()
+        {
+            return this._solucion;
         }
         public Tuple<int,int> GetPosicionNumero(int numero)//ejemplo buscar el numero 3 estaria en la posicion 2 y dentro tendria las posiciones en la matriz
         {
@@ -223,6 +226,7 @@ namespace I_Progra_Analisis
             int aux;
             if (k<n)
             {
+                cont += 1;
                 for (int i=k;i<n;i++)
                 {
                     aux = vec[k];
@@ -236,11 +240,27 @@ namespace I_Progra_Analisis
             }
             else
             {
-                Console.WriteLine();
+                if (vec.SequenceEqual(this._solucion))
+                {
+                    for (int i = 0; i < n; i++)
+                    {
+                        Console.Write(this._solucion[i] + ",");
+                    }
+                    Console.WriteLine();
+                    for (int i = 0; i < n; i++)
+                    {
+                        Console.Write(vec[i] + ",");
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine(cont);
+                    return;
+                }
+                    
+                /*Console.WriteLine();
                 for (int i = 0; i<n; i++)
                 {
-                    Console.Write(vec[i]+"\t");
-                }
+                    Console.Write(vec[i]+",");
+                }*/
             }
         }
     }
