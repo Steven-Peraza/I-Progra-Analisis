@@ -16,6 +16,7 @@ namespace I_Progra_Analisis
         private Random _random = new Random();
         int numeroRandom;
         int cont;
+        int cont2;
 
         public Tetravex(int tamaño)
         {
@@ -132,95 +133,54 @@ namespace I_Progra_Analisis
                 }
             }
         }
-        public void FuerzaBrutra()
+        public void FuerzaBrutra(int[] vec)
         {
-
-        }
-        /*public void Permuta(int[] s)
-        {
-            //Iniciamos este array auxiliar para
-            //marcar los caracteres que ya combinamos
-            int[] d = new int[s.Length];
-            bool[] marcas = new bool[s.Length];
-            //Llamamos al método recursivo
-            Permuta(s, d, marcas);
-        }
-
-        public void Permuta(int[] original, int[] permutacion, bool[] marcas)
-        {
-            //Imprimimos la combinación si ya cambiamos
-            //todas las letras una vez
-            if (permutacion[permutacion.Length-1] != 0)
+            for (int i = 0; i < vec.Length; i++)
             {
-                for (int a = 0; a < permutacion.Length; a++)
-                    Console.Write(permutacion[a]);
-                Console.WriteLine();
-                //for (int a = 0; a < permutacion.Length; a++)
-                  //  permutacion[a] = 0;
-            }
-            for (int i = 0; i < marcas.Length; i++)
-            {
-                //Vemos si está marcada para no volverla a permutar
-                if (!marcas[i])
+                Tuple<int,int> posicionPiezaA = GetPosicionNumero(vec[i]);
+                Pieza piezaA = GetPieza(posicionPiezaA.Item1, posicionPiezaA.Item2);
+
+                if (posicionPiezaA.Item1 == 0)
                 {
-                    //Marcamos el caracter que vamos a permutar
-                    marcas[i] = true;
-                    //Invocamos al metodo recursivo añadiendo
-                    //un caracter al string que permutamos
-                    for (int j = 0; j < permutacion.Length; j++)
+                    if (posicionPiezaA.Item2 != 0)
                     {
-                        if (permutacion[j] == 0)
+                        Pieza piezaAnterior = this._tablero[posicionPiezaA.Item1,posicionPiezaA.Item2-1];
+                        if (piezaAnterior.GetLado(3) != piezaA.GetLado(1))
                         {
-                            permutacion[j] = original[i];
-                            break;
+                            return;
                         }
                     }
-                    //Console.WriteLine("pieza = "+ original[i]);
-                    Permuta(original, permutacion, marcas);
-                    //Desmarcamos el caracter para poder usarlo
-                    //en otras combinaciones
-                    marcas[i] = false;
-                    //for (int a = 0; a < permutacion.Length; a++)
-                      //    permutacion[a] = 0;
-                        //permutacion[i] = 0;
                 }
-            }
-        }*/
-        /*public void Permuta(string s)
-        {
-            //Iniciamos este array auxiliar para
-            //marcar los caracteres que ya combinamos
-            bool[] marcas = new bool[s.Length];
-            //Llamamos al método recursivo
-            Permuta(s, "", marcas);
-        }
-        public void Permuta(string original, string permutacion, bool[] marcas)
-        {
-            //Imprimimos la combinación si ya cambiamos
-            //todas las letras una vez
-            if (original.Length == permutacion.Length)
-                Console.WriteLine(permutacion);
-
-
-            for (int i = 0; i < marcas.Length; i++)
-            {
-                Console.WriteLine("permutacion al inicio "+permutacion);
-                //Vemos si está marcada para no volverla a permutar
-                if (!marcas[i])
+                else
                 {
-                    //Marcamos el caracter que vamos a permutar
-                    marcas[i] = true;
-                    //Invocamos al metodo recursivo añadiendo
-                    //un caracter al string que permutamos
-                    Console.WriteLine(permutacion+ " permutacion"+ original[i]+ " lugar");
-                    Permuta(original, permutacion + original[i], marcas);
-                    Console.WriteLine("permutacion despues de llamar al void " + permutacion);
-                    //Desmarcamos el caracter para poder usarlo
-                    //en otras combinaciones
-                    marcas[i] = false;
+                    if (posicionPiezaA.Item2 == 0)
+                    {
+                        Pieza piezaArriba = this._tablero[posicionPiezaA.Item1-1, posicionPiezaA.Item2];
+                        if (piezaArriba.GetLado(2) != piezaA.GetLado(0))
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        Pieza piezaAnterior = this._tablero[posicionPiezaA.Item1, posicionPiezaA.Item2 - 1];
+                        Pieza piezaArriba = this._tablero[posicionPiezaA.Item1 - 1, posicionPiezaA.Item2];
+                        if (piezaAnterior.GetLado(3) != piezaA.GetLado(1) || piezaArriba.GetLado(2) != piezaA.GetLado(0))
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            if (i == vec.Length - 1)
+                                Console.WriteLine("Termino la comparacion");
+                        }
+                    }
                 }
+
             }
-        }*/
+
+        }
+        
         public void GeneraPermutacion(int[] vec, int k, int n)
         {
             int aux;
@@ -240,8 +200,10 @@ namespace I_Progra_Analisis
             }
             else
             {
+                FuerzaBrutra(vec);
                 if (vec.SequenceEqual(this._solucion))
                 {
+
                     for (int i = 0; i < n; i++)
                     {
                         Console.Write(this._solucion[i] + ",");
