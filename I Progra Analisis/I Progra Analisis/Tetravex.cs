@@ -35,6 +35,10 @@ namespace I_Progra_Analisis
         {
             return this._tablero[fila, columna];
         }
+        public int[] GetSolucion()
+        {
+            return this._solucion;
+        }
         public Tuple<int,int> GetPosicionNumero(int numero)//ejemplo buscar el numero 3 estaria en la posicion 2 y dentro tendria las posiciones en la matriz
         {
             return this._posicionNumero[numero-1];
@@ -129,17 +133,70 @@ namespace I_Progra_Analisis
             }
         }
 
-        public void FuerzaBruta()
+        public void FuerzaBrutra()
         {
-            int[] lista1 = { 1, 2, 3, 4, 5, 6 };
-            int[] lista2 = { 1, 2, 3, 4, 5, 6 };
-            if (lista1.SequenceEqual(lista2))
+
+        }
+
+        public void Descarte(Pieza[,] vec)
+        {
+            Pieza[,] solux = new Pieza[this._tamaño, this._tamaño];
+            Pieza piezaInicio = vec[0, 0];
+            for (int i = 0; i < this._tamaño; i++)
             {
-                Console.WriteLine("Vamonos de joda!!!");
+                for (int j = 0; j < this._tamaño; i++)
+                {
+                    if (piezaInicio != vec[i,j])
+                    {
+                        if (piezaInicio.GetLado(3) == vec[i,j].GetLado(1))
+                        {
+                            solux.
+                        }
+                    }
+                }
+            }
+        }
+
+        public void GeneraPermutacion(int[] vec, int k, int n)
+        {
+            int aux;
+            if (k<n)
+            {
+                cont += 1;
+                for (int i=k;i<n;i++)
+                {
+                    aux = vec[k];
+                    vec[k] = vec[i];
+                    vec[i] = aux;
+                    GeneraPermutacion(vec, k + 1, n);
+                    aux = vec[k];
+                    vec[k] = vec[i];
+                    vec[i] = aux;
+                }
             }
             else
             {
-                Console.WriteLine("Vamonos de joda, mentira...!!!");
+                if (vec.SequenceEqual(this._solucion))
+                {
+                    for (int i = 0; i < n; i++)
+                    {
+                        Console.Write(this._solucion[i] + ",");
+                    }
+                    Console.WriteLine();
+                    for (int i = 0; i < n; i++)
+                    {
+                        Console.Write(vec[i] + ",");
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine(cont);
+                    return;
+                }
+                    
+                /*Console.WriteLine();
+                for (int i = 0; i<n; i++)
+                {
+                    Console.Write(vec[i]+",");
+                }*/
             }
         }
     }
