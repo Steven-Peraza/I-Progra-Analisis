@@ -16,8 +16,6 @@ namespace I_Progra_Analisis
         private Random _random = new Random();
         int numeroRandom;
         int cont;
-        int cont2;
-
         public Tetravex(int tamaño)
         {
             this._tamaño = tamaño;
@@ -130,12 +128,13 @@ namespace I_Progra_Analisis
                     cont += 1;
                 }
             }
+            cont = 0;
         }
-        public void FuerzaBruta(int[] vec)
+        public bool FuerzaBruta(int[] vec)
         {
             for (int i = 0; i < vec.Length; i++)
             {
-                Console.WriteLine("empieza fuerza bruta");
+                //Console.WriteLine("empieza fuerza bruta");
                 Tuple<int,int> posicionPiezaA = GetPosicionNumero(vec[i]);        
                 Pieza piezaA = GetPieza(posicionPiezaA.Item1, posicionPiezaA.Item2);
                 if (i < this._tamaño)
@@ -147,7 +146,7 @@ namespace I_Progra_Analisis
                         if (piezaAnterior.GetLado(3) != piezaA.GetLado(1))
                         {
                             //Console.WriteLine("diferente anterior primera fila");
-                            return;
+                            return false;
                         }
                     }
                 }
@@ -160,7 +159,7 @@ namespace I_Progra_Analisis
                         if (piezaArriba.GetLado(2) != piezaA.GetLado(0))
                         {
                             //Console.WriteLine("diferente arriba primera columna");
-                            return;
+                            return false;
                         }
                     }
                     else
@@ -172,14 +171,15 @@ namespace I_Progra_Analisis
                         if (piezaAnterior.GetLado(3) != piezaA.GetLado(1) || piezaArriba.GetLado(2) != piezaA.GetLado(0))
                         {
                             //Console.WriteLine("diferente arriba o atras");
-                            return;
+                            return false;
                         }
                     }
                 }
             }
             Console.WriteLine("Encontro solucion");
+            return true;
         }
-        public void GeneraPermutacion(int[] vec, int k, int n)
+        public bool GeneraPermutacion(int[] vec, int k, int n)
         {
             int aux;
             if (k<n)
@@ -189,17 +189,27 @@ namespace I_Progra_Analisis
                     aux = vec[k];
                     vec[k] = vec[i];
                     vec[i] = aux;
-                    GeneraPermutacion(vec, k + 1, n);
-                    aux = vec[k];
-                    vec[k] = vec[i];
-                    vec[i] = aux;
+                    //GeneraPermutacion(vec, k + 1, n);
+                    if (!GeneraPermutacion(vec, k + 1, n))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        aux = vec[k];
+                        vec[k] = vec[i];
+                        vec[i] = aux;
+                        
+                    }
+                    
                 }
+                return true;
             }
             else
             {
                 cont += 1;
                 FuerzaBruta(vec);
-                if (vec.SequenceEqual(this._solucion))
+                if (FuerzaBruta(vec))
                 {
                     Console.WriteLine("Solucion original");
                     for (int i = 0; i < n; i++)
@@ -207,22 +217,17 @@ namespace I_Progra_Analisis
                         Console.Write(this._solucion[i] + ",");
                     }
                     Console.WriteLine();
-                    Console.WriteLine("Solucion");
+                    Console.WriteLine("Solucion actual");
                     for (int i = 0; i < n; i++)
                     {
                         Console.Write(vec[i] + ",");
                     }
                     Console.WriteLine();
                     Console.WriteLine("termino en "+cont);
-                    return;
+                    return false;
                 }
                 Console.WriteLine(cont);
-
-                /*Console.WriteLine();
-                for (int i = 0; i<n; i++)
-                {
-                    Console.Write(vec[i]+",");
-                }*/
+                return true;
             }
         }
     }
