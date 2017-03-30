@@ -27,7 +27,6 @@ namespace I_Progra_Analisis
             GenerarTablero();
             Revolver();
         }
-
         public void SetPieza(int fila, int columna, Pieza pieza)
         {
             this._tablero[fila, columna] = pieza;
@@ -44,7 +43,6 @@ namespace I_Progra_Analisis
         {
             return this._posicionNumero[numero-1];
         }
-
         public void GenerarTablero()//genera el tablero ordenado y resuelto
         {
             cont = 1;
@@ -133,60 +131,59 @@ namespace I_Progra_Analisis
                 }
             }
         }
-        public void FuerzaBrutra(int[] vec)
+        public void FuerzaBruta(int[] vec)
         {
             for (int i = 0; i < vec.Length; i++)
             {
-                Tuple<int,int> posicionPiezaA = GetPosicionNumero(vec[i]);
+                Console.WriteLine("empieza fuerza bruta");
+                Tuple<int,int> posicionPiezaA = GetPosicionNumero(vec[i]);        
                 Pieza piezaA = GetPieza(posicionPiezaA.Item1, posicionPiezaA.Item2);
-
-                if (posicionPiezaA.Item1 == 0)
+                if (i < this._tamaño)
                 {
-                    if (posicionPiezaA.Item2 != 0)
+                    if (i!=0)
                     {
-                        Pieza piezaAnterior = this._tablero[posicionPiezaA.Item1,posicionPiezaA.Item2-1];
+                        Tuple<int, int> posicionPiezaAnterior = GetPosicionNumero(vec[i-1]);
+                        Pieza piezaAnterior = this._tablero[posicionPiezaAnterior.Item1,(posicionPiezaAnterior.Item2)];
                         if (piezaAnterior.GetLado(3) != piezaA.GetLado(1))
                         {
+                            //Console.WriteLine("diferente anterior primera fila");
                             return;
                         }
                     }
                 }
                 else
                 {
-                    if (posicionPiezaA.Item2 == 0)
+                    if (i%this._tamaño ==0)
                     {
-                        Pieza piezaArriba = this._tablero[posicionPiezaA.Item1-1, posicionPiezaA.Item2];
+                        Tuple<int, int> posicionPiezaArriba = GetPosicionNumero(vec[i-this._tamaño]);
+                        Pieza piezaArriba = GetPieza(posicionPiezaArriba.Item1, posicionPiezaArriba.Item2);
                         if (piezaArriba.GetLado(2) != piezaA.GetLado(0))
                         {
+                            //Console.WriteLine("diferente arriba primera columna");
                             return;
                         }
                     }
                     else
                     {
-                        Pieza piezaAnterior = this._tablero[posicionPiezaA.Item1, posicionPiezaA.Item2 - 1];
-                        Pieza piezaArriba = this._tablero[posicionPiezaA.Item1 - 1, posicionPiezaA.Item2];
+                        Tuple<int, int> posicionPiezaArriba = GetPosicionNumero(vec[i - this._tamaño]);
+                        Tuple<int, int> posicionPiezaAnterior = GetPosicionNumero(vec[i - 1]);
+                        Pieza piezaAnterior = this._tablero[posicionPiezaAnterior.Item1, posicionPiezaAnterior.Item2];
+                        Pieza piezaArriba = this._tablero[posicionPiezaArriba.Item1, posicionPiezaArriba.Item2];
                         if (piezaAnterior.GetLado(3) != piezaA.GetLado(1) || piezaArriba.GetLado(2) != piezaA.GetLado(0))
                         {
+                            //Console.WriteLine("diferente arriba o atras");
                             return;
-                        }
-                        else
-                        {
-                            if (i == vec.Length - 1)
-                                Console.WriteLine("Termino la comparacion");
                         }
                     }
                 }
-
             }
-
+            Console.WriteLine("Encontro solucion");
         }
-        
         public void GeneraPermutacion(int[] vec, int k, int n)
         {
             int aux;
             if (k<n)
             {
-                cont += 1;
                 for (int i=k;i<n;i++)
                 {
                     aux = vec[k];
@@ -200,24 +197,27 @@ namespace I_Progra_Analisis
             }
             else
             {
-                FuerzaBrutra(vec);
+                cont += 1;
+                FuerzaBruta(vec);
                 if (vec.SequenceEqual(this._solucion))
                 {
-
+                    Console.WriteLine("Solucion original");
                     for (int i = 0; i < n; i++)
                     {
                         Console.Write(this._solucion[i] + ",");
                     }
                     Console.WriteLine();
+                    Console.WriteLine("Solucion");
                     for (int i = 0; i < n; i++)
                     {
                         Console.Write(vec[i] + ",");
                     }
                     Console.WriteLine();
-                    Console.WriteLine(cont);
+                    Console.WriteLine("termino en "+cont);
                     return;
                 }
-                    
+                Console.WriteLine(cont);
+
                 /*Console.WriteLine();
                 for (int i = 0; i<n; i++)
                 {
