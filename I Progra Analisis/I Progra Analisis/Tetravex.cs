@@ -40,6 +40,7 @@ namespace I_Progra_Analisis
         }
         public Tuple<int,int> GetPosicionNumero(int numero)//ejemplo buscar el numero 3 estaria en la posicion 2 y dentro tendria las posiciones en la matriz
         {
+
             return this._posicionNumero[numero-1];
         }
         public void GenerarTablero()//genera el tablero ordenado y resuelto
@@ -131,9 +132,9 @@ namespace I_Progra_Analisis
             }
             cont = 0;
         }
-        public bool FuerzaBruta(int[] vec)
+        public bool Comparar(int[] vec, int posicion, int cantidad, int algoritmo)
         {
-            for (int i = 0; i < vec.Length; i++)
+            for (int i = posicion; i < cantidad; i++)
             {
                 //Console.WriteLine("empieza fuerza bruta");
                 Tuple<int,int> posicionPiezaA = GetPosicionNumero(vec[i]);        
@@ -177,12 +178,76 @@ namespace I_Progra_Analisis
                     }
                 }
             }
-            Console.WriteLine("Encontro solucion");
-            if (this._solucion.SequenceEqual(vec))
+            if (algoritmo == 1)
+                if (this._solucion.SequenceEqual(vec))
+                    return true;
+                else
+                    return false;
+            else if (algoritmo == 2)
                 return true;
+
+            return true;
+        }
+       public void tanteo(int[] vec,ArrayList lista, int cont)
+        {
+            Console.WriteLine("Acaba de empezar");
+            for (int j = 0; j < this._tamaño * this._tamaño; j++)
+            {
+                Console.Write(vec[j]);
+            }
+            Console.ReadKey();
+            Console.WriteLine();
+            if (cont < this._tamaño*this._tamaño)
+            {
+                for (int i = cont; i <= lista.Count; i++)
+                {
+                    vec[cont] = Convert.ToInt32(lista[0]);
+                    Console.WriteLine("despues de asignar");
+                    for (int j = 0; j < this._tamaño * this._tamaño; j++)
+                    {
+                        Console.Write(vec[j]);
+                    }
+                    Console.ReadKey();
+                    lista.Remove(lista[0]);
+                    if (cont != 0)
+                    {
+                        if (Comparar(vec, cont, cont + 1,2))
+                        {
+                            Console.WriteLine("comparo bien");
+                            tanteo(vec, lista, cont + 1);
+                        }
+                        else
+                        {
+                            lista.Add(vec[cont]);
+                            vec[cont] = 0;
+                        }
+                            
+                    }
+                    else
+                    {
+                        Console.WriteLine("asd");
+                        tanteo(vec, lista, cont + 1);
+                    }           
+                }
+                if (lista.Count != 0)
+                {
+                    cont -= 1;
+                    lista.Add(vec[cont]);
+                    vec[cont] = 0;
+                    tanteo(vec, lista, cont);
+                }
+                //cont -= 1;
+            }
             else
-                return false;
-        }/*
+            {
+                Console.WriteLine("fin");
+                for (int j = 0; j < this._tamaño * this._tamaño; j++)
+                {
+                    Console.Write(vec[j]);
+                }
+            }
+        }
+        /*
         public bool CompruebaLista(ArrayList combinaciones,int numeroLista)
         {
             foreach (Tuple<int, int> a in combinaciones)
@@ -456,7 +521,7 @@ namespace I_Progra_Analisis
                 }
             }*/
         
-        public bool GeneraPermutacion(int[] vec, int k, int n)
+        public bool FuerzaBruta(int[] vec, int k, int n)
         {
             Console.WriteLine("Acaba de empezar");
             for (int j = 0; j < n; j++)
@@ -488,7 +553,7 @@ namespace I_Progra_Analisis
                     Console.ReadKey();
                     Console.WriteLine();
                     //GeneraPermutacion(vec, k + 1, n);
-                    if (!GeneraPermutacion(vec, k + 1, n))
+                    if (!FuerzaBruta(vec, k + 1, n))
                     {
                         return false;
                     }
@@ -512,7 +577,7 @@ namespace I_Progra_Analisis
                     Console.Write(vec[i] + ",");
                 }
                 Console.WriteLine();*/
-                if (FuerzaBruta(vec))
+                if (Comparar(vec,0,vec.Length,1))
                 {
                     Console.WriteLine("Solucion original");
                     for (int i = 0; i < n; i++)

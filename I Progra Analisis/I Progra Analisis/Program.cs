@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,14 +30,20 @@ namespace I_Progra_Analisis
                 }
             }
             int[] _solucion = new int[n * n];
-            tetravex.tanteo(_solucion);
+            int[] _solucion2 = new int[n * n];
+            //tetravex.tanteo(_solucion);
             Console.ReadKey();
             for (int i = 0; i < n * n; i++)
                 _solucion[i] = i + 1;
+            ArrayList auxList = new ArrayList();
+            for (int i = 1; i <= n * n; i++)
+                auxList.Add(i);
             //Console.WriteLine(_solucion2[1]);
             //Console.ReadKey();
             //tetravex.Permuta(_solucion);
-            //tetravex.GeneraPermutacion(_solucion, 0, _solucion.Length);
+            //tetravex.FuerzaBruta(_solucion, 0, _solucion.Length);
+            tetravex.tanteo(_solucion2, auxList, 0);
+            
             Console.ReadKey();
 
             for (int i = 0; i < n; i++) //Imprime piezas
