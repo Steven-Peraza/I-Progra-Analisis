@@ -182,7 +182,7 @@ namespace I_Progra_Analisis
                 return true;
             else
                 return false;
-        }
+        }/*
         public bool CompruebaLista(ArrayList combinaciones,int numeroLista)
         {
             foreach (Tuple<int, int> a in combinaciones)
@@ -311,9 +311,10 @@ namespace I_Progra_Analisis
                 }
         }
             if (vec.SequenceEqual(this._solucion))
-                Console.WriteLine("A cachete");
-            /*
-            public void tanteo(int[] vec)
+                Console.WriteLine("A cachete");*/
+            
+            
+           /* public void tanteo(int[] vec)
             {
                 ArrayList removidos = new ArrayList();
                 cont = 0;
@@ -427,14 +428,14 @@ namespace I_Progra_Analisis
                                 cont -= 1;
                             }
                         }
-                            /*vec[cont] = Convert.ToInt32(auxList[0]);
+                            vec[cont] = Convert.ToInt32(auxList[0]);
                             Tuple<int, int> posicionPiezaA = GetPosicionNumero(vec[cont]);
                             Pieza piezaA = GetPieza(posicionPiezaA.Item1, posicionPiezaA.Item2);
                             removidos.Add(auxList[0]);
                             auxList.Remove(auxList[0]);
                             Tuple<int, int> combinacion = new Tuple<int, int>(cont, vec[cont]);
                             combinaciones.Add(combinacion);
-                            cont += 1;*/
+                            cont += 1;
 
 
 
@@ -442,7 +443,7 @@ namespace I_Progra_Analisis
 
         }            
             
-            /*else
+            else
             {
 
                 cont -= 1;
