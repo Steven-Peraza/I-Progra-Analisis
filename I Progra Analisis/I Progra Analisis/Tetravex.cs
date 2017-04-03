@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -177,18 +178,314 @@ namespace I_Progra_Analisis
                 }
             }
             Console.WriteLine("Encontro solucion");
-            return true;
+            if (this._solucion.SequenceEqual(vec))
+                return true;
+            else
+                return false;
         }
+        public bool CompruebaLista(ArrayList combinaciones,int numeroLista)
+        {
+            foreach (Tuple<int, int> a in combinaciones)
+            {
+                if (a.Item1 > cont)
+                {
+                    combinaciones.Remove(a);
+                }
+                else
+                {
+                    if (a.Item1 == cont && a.Item2 == numeroLista)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        public void tanteo(int[] vec)
+        {
+            ArrayList removidos = new ArrayList();
+            cont = 0;
+            ArrayList auxList = new ArrayList();
+            ArrayList combinaciones = new ArrayList();
+            for (int i = 1; i <= this._tamaño * this._tamaño; i++)
+                auxList.Add(i);
+            while (vec[vec.Length - 1] == 0)
+            {
+                Console.WriteLine("asd");
+                if (auxList.Count == 0)
+                {
+                    while (removidos.Count != 0)
+                    {
+                        auxList.Add(removidos[0]);
+                        removidos.Remove(removidos[0]);
+                    }
+                }
+                    int numeroLista = Convert.ToInt32(auxList[0]);
+                if (CompruebaLista(combinaciones, numeroLista))
+                {
+                    removidos.Add(auxList[0]);
+                    auxList.Remove(0);
+                }
+                else
+                {
+                    if (auxList.Count != 0)
+                    {
+                        vec[cont] = Convert.ToInt32(auxList[0]);
+                        Tuple<int, int> posicionPiezaA = GetPosicionNumero(vec[cont]);
+                        Pieza piezaA = GetPieza(posicionPiezaA.Item1, posicionPiezaA.Item2);
+                        removidos.Add(auxList[0]);
+                        auxList.Remove(auxList[0]);
+                        Tuple<int, int> combinacion = new Tuple<int, int>(cont, vec[cont]);
+                        combinaciones.Add(combinacion);
+                        if (cont != 0)
+                        {
+                            if (cont < this._tamaño)
+                            {
+                                if (cont != 0)
+                                {
+                                    Tuple<int, int> posicionPiezaAnterior = GetPosicionNumero(vec[cont - 1]);
+                                    Pieza piezaAnterior = this._tablero[posicionPiezaAnterior.Item1, (posicionPiezaAnterior.Item2)];
+                                    if (piezaAnterior.GetLado(3) != piezaA.GetLado(1))
+                                    {
+                                        removidos.Add(vec[cont]);
+                                        vec[cont] = 0;
+                                    }
+                                    else
+                                    {
+                                        cont += 1;
+                                    }
+                                }
+                                else
+                                {
+                                    cont += 1;
+                                }
+                            }
+                            else
+                            {
+                                if (cont % this._tamaño == 0)
+                                {
+                                    Tuple<int, int> posicionPiezaArriba = GetPosicionNumero(vec[cont - this._tamaño]);
+                                    Pieza piezaArriba = GetPieza(posicionPiezaArriba.Item1, posicionPiezaArriba.Item2);
+                                    if (piezaArriba.GetLado(2) != piezaA.GetLado(0))
+                                    {
+                                        removidos.Add(vec[cont]);
+                                        vec[cont] = 0;
+                                    }
+                                    else
+                                    {
+                                        cont += 1;
+                                    }
+                                }
+                                else
+                                {
+                                    Tuple<int, int> posicionPiezaArriba = GetPosicionNumero(vec[cont - this._tamaño]);
+                                    Tuple<int, int> posicionPiezaAnterior = GetPosicionNumero(vec[cont - 1]);
+                                    Pieza piezaAnterior = this._tablero[posicionPiezaAnterior.Item1, posicionPiezaAnterior.Item2];
+                                    Pieza piezaArriba = this._tablero[posicionPiezaArriba.Item1, posicionPiezaArriba.Item2];
+                                    if (piezaAnterior.GetLado(3) != piezaA.GetLado(1) || piezaArriba.GetLado(2) != piezaA.GetLado(0))
+                                    {
+                                        removidos.Add(vec[cont]);
+                                        vec[cont] = 0;
+                                    }
+                                    else
+                                    {
+                                        cont += 1;
+                                    }
+
+                                }
+                            }
+                        }
+                        else
+                            cont += 1;
+                    }
+                    else
+                    {
+                        while (removidos.Count != 0)
+                        {
+                            auxList.Add(removidos[0]);
+                            removidos.Remove(removidos[0]);
+                        }
+                        cont -= 1;
+                    }
+
+                }
+        }
+            if (vec.SequenceEqual(this._solucion))
+                Console.WriteLine("A cachete");
+            /*
+            public void tanteo(int[] vec)
+            {
+                ArrayList removidos = new ArrayList();
+                cont = 0;
+                ArrayList auxList = new ArrayList();
+                ArrayList combinaciones = new ArrayList();
+                for (int i = 1; i <= this._tamaño * this._tamaño; i++)
+                    auxList.Add(i);
+
+                while (vec[vec.Length - 1] == 0)
+                {
+                    Console.WriteLine("empieza");
+                    for (int i = 0; i < vec.Length; i++)
+                        Console.Write(vec[i]);
+                    Console.WriteLine();
+                        int numeroLista = Convert.ToInt32(auxList[0]);
+                        if (CompruebaLista(combinaciones,numeroLista))
+                        {
+                            removidos.Add(auxList[0]);
+                            auxList.Remove(0);
+                            vec[cont] = 0;
+                        }
+                        else
+                        {
+                            Console.WriteLine("no esta");
+                            if (auxList.Count != 0)
+                            {
+                                vec[cont] = Convert.ToInt32(auxList[0]);
+                                Tuple<int, int> posicionPiezaA = GetPosicionNumero(vec[cont]);
+                                Pieza piezaA = GetPieza(posicionPiezaA.Item1, posicionPiezaA.Item2);
+                                removidos.Add(auxList[0]);
+                                auxList.Remove(auxList[0]);
+                                Tuple<int, int> combinacion = new Tuple<int, int>(cont, vec[cont]);
+                                combinaciones.Add(combinacion);
+                                for (int i = 0; i < vec.Length; i++)
+                                    Console.Write(vec[i]);
+                                Console.WriteLine();
+                                Console.WriteLine("lista: ");
+                                for (int i = 0; i < auxList.Count; i++)
+                                    Console.Write(auxList[i]);
+                                Console.WriteLine();
+                                Console.WriteLine("removidos: ");
+                                for (int i = 0; i < removidos.Count; i++)
+                                    Console.Write(removidos[i]);
+                                Console.WriteLine();
+                                Console.WriteLine("--------------------------");
+                                Console.WriteLine();
+                                Console.ReadKey();
+                                if (cont < this._tamaño)
+                                {
+                                    if (cont != 0)
+                                    {
+                                        Tuple<int, int> posicionPiezaAnterior = GetPosicionNumero(vec[cont - 1]);
+                                        Pieza piezaAnterior = this._tablero[posicionPiezaAnterior.Item1, (posicionPiezaAnterior.Item2)];
+                                        if (piezaAnterior.GetLado(3) != piezaA.GetLado(1))
+                                        {
+                                            removidos.Add(vec[cont]);
+                                            vec[cont] = 0;
+                                        }
+                                        else
+                                        {
+                                            cont += 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        cont += 1;
+                                    }
+                                }
+                                else
+                                {
+                                    if (cont % this._tamaño == 0)
+                                    {
+                                        Tuple<int, int> posicionPiezaArriba = GetPosicionNumero(vec[cont - this._tamaño]);
+                                        Pieza piezaArriba = GetPieza(posicionPiezaArriba.Item1, posicionPiezaArriba.Item2);
+                                        if (piezaArriba.GetLado(2) != piezaA.GetLado(0))
+                                        {
+                                            removidos.Add(vec[cont]);
+                                            vec[cont] = 0;
+                                        }
+                                        else
+                                        {
+                                            cont += 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Tuple<int, int> posicionPiezaArriba = GetPosicionNumero(vec[cont - this._tamaño]);
+                                        Tuple<int, int> posicionPiezaAnterior = GetPosicionNumero(vec[cont - 1]);
+                                        Pieza piezaAnterior = this._tablero[posicionPiezaAnterior.Item1, posicionPiezaAnterior.Item2];
+                                        Pieza piezaArriba = this._tablero[posicionPiezaArriba.Item1, posicionPiezaArriba.Item2];
+                                        if (piezaAnterior.GetLado(3) != piezaA.GetLado(1) || piezaArriba.GetLado(2) != piezaA.GetLado(0))
+                                        {
+                                            removidos.Add(vec[cont]);
+                                            vec[cont] = 0;
+                                        }
+                                        else
+                                        {
+                                            cont += 1;
+                                        }
+
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                while (removidos.Count != 0)
+                                {
+                                    auxList.Add(removidos[0]);
+                                    removidos.Remove(removidos[0]);
+                                }
+                                cont -= 1;
+                            }
+                        }
+                            /*vec[cont] = Convert.ToInt32(auxList[0]);
+                            Tuple<int, int> posicionPiezaA = GetPosicionNumero(vec[cont]);
+                            Pieza piezaA = GetPieza(posicionPiezaA.Item1, posicionPiezaA.Item2);
+                            removidos.Add(auxList[0]);
+                            auxList.Remove(auxList[0]);
+                            Tuple<int, int> combinacion = new Tuple<int, int>(cont, vec[cont]);
+                            combinaciones.Add(combinacion);
+                            cont += 1;*/
+
+
+
+
+
+        }            
+            
+            /*else
+            {
+
+                cont -= 1;
+                removidos.Add(vec[cont]);
+                vec[cont] = 0;
+                while (removidos.Count != 0)
+                {
+                    auxList.Add(removidos[0]);
+                    removidos.Remove(0);
+                }
+            }*/
+        
         public bool GeneraPermutacion(int[] vec, int k, int n)
         {
+            Console.WriteLine("Acaba de empezar");
+            for (int j = 0; j < n; j++)
+            {
+                Console.Write(vec[j]);
+            }
+            Console.ReadKey();
+            Console.WriteLine();
             int aux;
             if (k<n)
             {
                 for (int i=k;i<n;i++)
                 {
+                    Console.WriteLine("Entro");
+                    for (int j = 0; j < n; j++)
+                    {
+                        Console.Write(vec[j]);
+                    }
+                    Console.ReadKey();
+                    Console.WriteLine();
                     aux = vec[k];
                     vec[k] = vec[i];
                     vec[i] = aux;
+                    Console.WriteLine("Despues de hacer unas asignaciones");
+                    for (int j = 0; j < n; j++)
+                    {
+                        Console.Write(vec[j]);
+                    }
+                    Console.ReadKey();
+                    Console.WriteLine();
                     //GeneraPermutacion(vec, k + 1, n);
                     if (!GeneraPermutacion(vec, k + 1, n))
                     {
@@ -208,7 +505,12 @@ namespace I_Progra_Analisis
             else
             {
                 cont += 1;
-                FuerzaBruta(vec);
+                //FuerzaBruta(vec);
+                /*for (int i = 0; i < n; i++)
+                {
+                    Console.Write(vec[i] + ",");
+                }
+                Console.WriteLine();*/
                 if (FuerzaBruta(vec))
                 {
                     Console.WriteLine("Solucion original");
@@ -226,7 +528,7 @@ namespace I_Progra_Analisis
                     Console.WriteLine("termino en "+cont);
                     return false;
                 }
-                Console.WriteLine(cont);
+                //Console.WriteLine(cont);
                 return true;
             }
         }
