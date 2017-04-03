@@ -37,7 +37,7 @@ namespace I_Progra_Analisis
                     Console.ReadKey();
                 }
             }
-            Console.WriteLine("El numero 5 esta en: "+tetravex.GetPosicionNumero(5));
+            //Console.WriteLine("El numero 5 esta en: "+tetravex.GetPosicionNumero(5));
             Console.ReadKey();
         }
     }

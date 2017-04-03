@@ -16,6 +16,7 @@ namespace I_Progra_Analisis
         private Random _random = new Random();
         int numeroRandom;
         int cont;
+        int cont2;
 
         public Tetravex(int tamaño)
         {
@@ -132,12 +133,6 @@ namespace I_Progra_Analisis
                 }
             }
         }
-
-        public void FuerzaBrutra()
-        {
-
-        }
-
         public void Descarte(Pieza[,] vec)
         {
             Pieza[,] solux = new Pieza[this._tamaño, this._tamaño];
@@ -157,6 +152,54 @@ namespace I_Progra_Analisis
             }
         }
 
+        public void FuerzaBrutra(int[] vec)
+        {
+            for (int i = 0; i < vec.Length; i++)
+            {
+                Tuple<int,int> posicionPiezaA = GetPosicionNumero(vec[i]);
+                Pieza piezaA = GetPieza(posicionPiezaA.Item1, posicionPiezaA.Item2);
+
+                if (posicionPiezaA.Item1 == 0)
+                {
+                    if (posicionPiezaA.Item2 != 0)
+                    {
+                        Pieza piezaAnterior = this._tablero[posicionPiezaA.Item1,posicionPiezaA.Item2-1];
+                        if (piezaAnterior.GetLado(3) != piezaA.GetLado(1))
+                        {
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    if (posicionPiezaA.Item2 == 0)
+                    {
+                        Pieza piezaArriba = this._tablero[posicionPiezaA.Item1-1, posicionPiezaA.Item2];
+                        if (piezaArriba.GetLado(2) != piezaA.GetLado(0))
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        Pieza piezaAnterior = this._tablero[posicionPiezaA.Item1, posicionPiezaA.Item2 - 1];
+                        Pieza piezaArriba = this._tablero[posicionPiezaA.Item1 - 1, posicionPiezaA.Item2];
+                        if (piezaAnterior.GetLado(3) != piezaA.GetLado(1) || piezaArriba.GetLado(2) != piezaA.GetLado(0))
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            if (i == vec.Length - 1)
+                                Console.WriteLine("Termino la comparacion");
+                        }
+                    }
+                }
+
+            }
+
+        }
+        
         public void GeneraPermutacion(int[] vec, int k, int n)
         {
             int aux;
@@ -176,8 +219,10 @@ namespace I_Progra_Analisis
             }
             else
             {
+                FuerzaBrutra(vec);
                 if (vec.SequenceEqual(this._solucion))
                 {
+
                     for (int i = 0; i < n; i++)
                     {
                         Console.Write(this._solucion[i] + ",");
