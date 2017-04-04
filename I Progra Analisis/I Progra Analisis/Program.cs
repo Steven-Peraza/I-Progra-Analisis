@@ -42,7 +42,7 @@ namespace I_Progra_Analisis
             //Console.ReadKey();
             //tetravex.Permuta(_solucion);
             //tetravex.FuerzaBruta(_solucion, 0, _solucion.Length);
-            tetravex.tanteo(_solucion2, auxList, 0);
+            tetravex.descarte(_solucion2, auxList, 0);
             
             Console.ReadKey();
 

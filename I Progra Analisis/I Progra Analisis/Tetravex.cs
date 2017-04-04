@@ -188,19 +188,25 @@ namespace I_Progra_Analisis
 
             return true;
         }
-       public void tanteo(int[] vec,ArrayList lista, int cont)
+       public void descarte(int[] vec,ArrayList lista, int cont)
         {
             Console.WriteLine("Acaba de empezar");
+            int Azopotamadre = 0;
             for (int j = 0; j < this._tamaño * this._tamaño; j++)
             {
                 Console.Write(vec[j]);
             }
             Console.ReadKey();
             Console.WriteLine();
-            if (cont < this._tamaño*this._tamaño)
+            if (cont < this._tamaño * this._tamaño)
             {
-                for (int i = cont; i <= lista.Count; i++)
+                Azopotamadre = lista.Count;
+                for (int i = cont; Azopotamadre > 0; i++,Azopotamadre--)
                 {
+                    if (lista.Count == 0)
+                    {
+                        break;
+                    }
                     vec[cont] = Convert.ToInt32(lista[0]);
                     Console.WriteLine("despues de asignar");
                     for (int j = 0; j < this._tamaño * this._tamaño; j++)
@@ -214,29 +220,29 @@ namespace I_Progra_Analisis
                         if (Comparar(vec, cont, cont + 1,2))
                         {
                             Console.WriteLine("comparo bien");
-                            tanteo(vec, lista, cont + 1);
+                            descarte(vec, lista, cont + 1);
                         }
                         else
                         {
                             lista.Add(vec[cont]);
                             vec[cont] = 0;
                         }
-                            
                     }
                     else
                     {
                         Console.WriteLine("asd");
-                        tanteo(vec, lista, cont + 1);
+                        descarte(vec, lista, cont + 1);
                     }           
                 }
                 if (lista.Count != 0)
                 {
+                    vec[cont] = 0;
+                    Console.WriteLine("aassdd");
                     cont -= 1;
                     lista.Add(vec[cont]);
                     vec[cont] = 0;
-                    tanteo(vec, lista, cont);
+                    //descarte(vec, lista, cont);
                 }
-                //cont -= 1;
             }
             else
             {
