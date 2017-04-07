@@ -9,6 +9,8 @@ namespace I_Progra_Analisis
 {
     class Tetravex
     {
+        static int asignaciones;
+        static int comparaciones;
         private Pieza[,] _tablero;
         private int _tamaño;
         private int[] _solucion;//Orden de la solucion
@@ -134,113 +136,189 @@ namespace I_Progra_Analisis
         }
         public bool Comparar(int[] vec, int posicion, int cantidad, int algoritmo)
         {
+            asignaciones += 1;
+            comparaciones += 1;
             for (int i = posicion; i < cantidad; i++)
             {
+                asignaciones += 3;
                 //Console.WriteLine("empieza fuerza bruta");
                 Tuple<int,int> posicionPiezaA = GetPosicionNumero(vec[i]);        
                 Pieza piezaA = GetPieza(posicionPiezaA.Item1, posicionPiezaA.Item2);
+                comparaciones += 1;
                 if (i < this._tamaño)
                 {
+                    comparaciones += 1;
                     if (i!=0)
                     {
+                        asignaciones += 2;
                         Tuple<int, int> posicionPiezaAnterior = GetPosicionNumero(vec[i-1]);
                         Pieza piezaAnterior = this._tablero[posicionPiezaAnterior.Item1,(posicionPiezaAnterior.Item2)];
+                        comparaciones += 1;
                         if (piezaAnterior.GetLado(3) != piezaA.GetLado(1))
                         {
                             //Console.WriteLine("diferente anterior primera fila");
+                            //////////////////////////////////////////////////////////////////////////////////los returns son asignaciones
+                            asignaciones += 1;
                             return false;
                         }
                     }
                 }
                 else
                 {
+                    comparaciones += 1;
                     if (i%this._tamaño ==0)
                     {
+                        asignaciones += 1;
                         Tuple<int, int> posicionPiezaArriba = GetPosicionNumero(vec[i-this._tamaño]);
                         Pieza piezaArriba = GetPieza(posicionPiezaArriba.Item1, posicionPiezaArriba.Item2);
+                        comparaciones += 1;
                         if (piezaArriba.GetLado(2) != piezaA.GetLado(0))
                         {
                             //Console.WriteLine("diferente arriba primera columna");
+                            asignaciones += 1;
                             return false;
                         }
                     }
                     else
                     {
+                        asignaciones += 4;
                         Tuple<int, int> posicionPiezaArriba = GetPosicionNumero(vec[i - this._tamaño]);
                         Tuple<int, int> posicionPiezaAnterior = GetPosicionNumero(vec[i - 1]);
                         Pieza piezaAnterior = this._tablero[posicionPiezaAnterior.Item1, posicionPiezaAnterior.Item2];
                         Pieza piezaArriba = this._tablero[posicionPiezaArriba.Item1, posicionPiezaArriba.Item2];
+                        comparaciones += 1;
                         if (piezaAnterior.GetLado(3) != piezaA.GetLado(1) || piezaArriba.GetLado(2) != piezaA.GetLado(0))
                         {
                             //Console.WriteLine("diferente arriba o atras");
+                            asignaciones += 1;
                             return false;
                         }
                     }
                 }
             }
+            comparaciones += 1;
             if (algoritmo == 1)
+            {
+                comparaciones += 1;
                 if (this._solucion.SequenceEqual(vec))
+                {
+                    asignaciones += 1;
                     return true;
+                }
                 else
+                {
+                    asignaciones += 1;
                     return false;
+                }
+            }
             else if (algoritmo == 2)
+            {
+                asignaciones += 1;
                 return true;
-
+            }
+            asignaciones += 1;
             return true;
+
+
+        }
+        public void tanteo(int[] vec, int cont)
+        {
+            ArrayList[] listaIzquierda = new ArrayList[9];
+            ArrayList[] listaDerecha = new ArrayList[9];
+            //int[] lista1 = new int[this._tamaño * this._tamaño];
+            //int[] lista2 = new int[this._tamaño * this._tamaño];
+            int Azopotamadre = 0;
+            for (int i = 1; i<= this._tamaño * this._tamaño; i++)
+            {
+                Tuple <int,int> posicionPA = GetPosicionNumero(i);
+                Pieza piezaActual = GetPieza(posicionPA.Item1,posicionPA.Item2);
+                int arriba = piezaActual.GetLado(0);
+                int izquierda = piezaActual.GetLado(1);
+                int abajo = piezaActual.GetLado(2);
+                int derecha = piezaActual.GetLado(3);
+                listaIzquierda[izquierda - 1].Add(piezaActual);
+                listaDerecha[derecha-1].Add(piezaActual);
+            }
+            if (cont < this._tamaño * this._tamaño)
+            {
+                //Azopotamadre = lista.Count;
+                asignaciones += 1;
+                comparaciones += 2;
+                for (int i = cont; Azopotamadre > 0; i++, Azopotamadre--)
+                {
+
+                }
+            }
         }
        public void descarte(int[] vec,ArrayList lista, int cont)
         {
-            Console.WriteLine("Acaba de empezar");
+            //Console.WriteLine("Acaba de empezar");
             int Azopotamadre = 0;
-            for (int j = 0; j < this._tamaño * this._tamaño; j++)
+            asignaciones += 1;
+            /*for (int j = 0; j < this._tamaño * this._tamaño; j++)
             {
-                Console.Write(vec[j]);
+                Console.Write(vec[j]+",");
             }
-            Console.ReadKey();
-            Console.WriteLine();
+            //Console.ReadKey();
+            Console.WriteLine();*/
+            comparaciones += 1;
             if (cont < this._tamaño * this._tamaño)
             {
                 Azopotamadre = lista.Count;
+                asignaciones += 1;
+                comparaciones += 2;
                 for (int i = cont; Azopotamadre > 0; i++,Azopotamadre--)
                 {
+                    asignaciones += 1;
+                    comparaciones += 1;
                     if (lista.Count == 0)
                     {
+                        ///////////////////////////////////////////////////////////////////////////////////////break cuenta como asignacion?
+                        asignaciones += 1;
                         break;
+
                     }
                     vec[cont] = Convert.ToInt32(lista[0]);
-                    Console.WriteLine("despues de asignar");
+                    /*//Console.WriteLine("despues de asignar");
                     for (int j = 0; j < this._tamaño * this._tamaño; j++)
                     {
-                        Console.Write(vec[j]);
+                        Console.Write(vec[j]+",");
                     }
-                    Console.ReadKey();
+                    Console.WriteLine();
+                    //Console.ReadKey();*/
                     lista.Remove(lista[0]);
+                    asignaciones += 1;
+                    comparaciones += 1;
                     if (cont != 0)
                     {
+                        comparaciones += 1;
                         if (Comparar(vec, cont, cont + 1,2))
                         {
-                            Console.WriteLine("comparo bien");
+                            //Console.WriteLine("comparo bien");
                             descarte(vec, lista, cont + 1);
                         }
                         else
                         {
                             lista.Add(vec[cont]);
                             vec[cont] = 0;
+                            asignaciones += 2;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("asd");
+                        //Console.WriteLine("asd");
                         descarte(vec, lista, cont + 1);
                     }           
                 }
+                comparaciones += 1;
                 if (lista.Count != 0)
                 {
                     vec[cont] = 0;
-                    Console.WriteLine("aassdd");
+                    //Console.WriteLine("aassdd");
                     cont -= 1;
                     lista.Add(vec[cont]);
                     vec[cont] = 0;
+                    asignaciones += 4;
                     //descarte(vec, lista, cont);
                 }
             }
@@ -249,8 +327,10 @@ namespace I_Progra_Analisis
                 Console.WriteLine("fin");
                 for (int j = 0; j < this._tamaño * this._tamaño; j++)
                 {
-                    Console.Write(vec[j]);
+                    Console.Write(vec[j]+",");
                 }
+                Console.WriteLine();
+                Console.WriteLine("Cantidad de asignaciones: "+asignaciones+ "\nCantidad de comparaciones: "+comparaciones);
             }
         }
         /*

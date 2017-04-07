@@ -16,7 +16,7 @@ namespace I_Progra_Analisis
             Tetravex tetravex = new Tetravex(n);
             Console.WriteLine("Arriba\nIzquierda\nAbajon\nDerecha\n");
             //int[] _solucion = {1,2,3};
-            for (int i = 0; i < n; i++) //Imprime piezas
+            /*for (int i = 0; i < n; i++) //Imprime piezas
             {
                 for (int j = 0; j < n; j++)
                 {
@@ -28,11 +28,11 @@ namespace I_Progra_Analisis
                     }
                     Console.ReadKey();
                 }
-            }
+            }*/
             int[] _solucion = new int[n * n];
             int[] _solucion2 = new int[n * n];
             //tetravex.tanteo(_solucion);
-            Console.ReadKey();
+            //Console.ReadKey();
             for (int i = 0; i < n * n; i++)
                 _solucion[i] = i + 1;
             ArrayList auxList = new ArrayList();
