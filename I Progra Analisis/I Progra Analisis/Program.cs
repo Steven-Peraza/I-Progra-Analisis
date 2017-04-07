@@ -15,13 +15,28 @@ namespace I_Progra_Analisis
             Tetravex tetravex = new Tetravex(n);
             Console.WriteLine("Arriba\nIzquierda\nAbajon\nDerecha\n");
             //int[] _solucion = {1,2,3};
+            for (int i = 0; i < n; i++) //Imprime piezas
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    Pieza pieza = tetravex.GetPieza(i, j);
+                    Console.WriteLine("Pieza " + i + "," + j + " numero: " + pieza.GetNumero());
+                    for (int k = 0; k < 4; k++)
+                    {
+                        Console.WriteLine(pieza.GetLado(k));
+                    }
+                    Console.ReadKey();
+                }
+            }
             int[] _solucion = new int[n * n];
+            tetravex.tanteo(_solucion);
+            Console.ReadKey();
             for (int i = 0; i < n * n; i++)
                 _solucion[i] = i + 1;
             //Console.WriteLine(_solucion2[1]);
             //Console.ReadKey();
             //tetravex.Permuta(_solucion);
-            tetravex.GeneraPermutacion(_solucion, 0, _solucion.Length);
+            //tetravex.GeneraPermutacion(_solucion, 0, _solucion.Length);
             Console.ReadKey();
 
             for (int i = 0; i < n; i++) //Imprime piezas
