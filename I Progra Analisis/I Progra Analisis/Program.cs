@@ -31,6 +31,7 @@ namespace I_Progra_Analisis
             }*/
             int[] _solucion = new int[n * n];
             int[] _solucion2 = new int[n * n];
+            Pieza[] _solucion3 = new Pieza[n * n];
             //tetravex.tanteo(_solucion);
             //Console.ReadKey();
             for (int i = 0; i < n * n; i++)
@@ -38,12 +39,25 @@ namespace I_Progra_Analisis
             ArrayList auxList = new ArrayList();
             for (int i = 1; i <= n * n; i++)
                 auxList.Add(i);
+            List<Pieza>[] listaIzquierda = new List<Pieza>[9] { new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>() };
+            //listaIzquierda[0].Add();
+            //Console.WriteLine(listaIzquierda[0]);
+            //Console.ReadKey();
+            for (int i = 1; i <= n*n; i++)
+            {
+                Tuple<int, int> posicionPA = tetravex.GetPosicionNumero(i);
+                Pieza piezaActual = tetravex.GetPieza(posicionPA.Item1, posicionPA.Item2);
+                int izquierda = piezaActual.GetLado(1);
+                listaIzquierda[izquierda - 1].Add(piezaActual);
+
+            }
+            //List<Pieza>[] listaIzquierda = new List<Pieza>[9];
             //Console.WriteLine(_solucion2[1]);
             //Console.ReadKey();
             //tetravex.Permuta(_solucion);
             //tetravex.FuerzaBruta(_solucion, 0, _solucion.Length);
-            tetravex.descarte(_solucion2, auxList, 0);
-            
+            //tetravex.descarte(_solucion2, auxList, 0);
+            tetravex.tanteo(_solucion3, listaIzquierda, 0);
             Console.ReadKey();
 
             for (int i = 0; i < n; i++) //Imprime piezas
