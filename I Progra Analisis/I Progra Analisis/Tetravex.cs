@@ -180,11 +180,12 @@ namespace I_Progra_Analisis
         }
         public bool Comparar(int[] vec, int posicion, int cantidad, int algoritmo)
         {
-            asignaciones += 1;
+            asignaciones += 5;
             comparaciones += 1;
             for (int i = posicion; i < cantidad; i++)
             {
-                asignaciones += 3;
+                asignaciones += 4;
+                comparaciones += 1;
                 Tuple<int,int> posicionPiezaA = GetPosicionNumero(vec[i]);        
                 Pieza piezaA = GetPieza(posicionPiezaA.Item1, posicionPiezaA.Item2);
                 comparaciones += 1;
@@ -209,7 +210,7 @@ namespace I_Progra_Analisis
                     comparaciones += 1;
                     if (i%this._tamaño ==0)
                     {
-                        asignaciones += 1;
+                        asignaciones += 2;
                         Tuple<int, int> posicionPiezaArriba = GetPosicionNumero(vec[i-this._tamaño]);
                         Pieza piezaArriba = GetPieza(posicionPiezaArriba.Item1, posicionPiezaArriba.Item2);
                         comparaciones += 1;
@@ -235,10 +236,10 @@ namespace I_Progra_Analisis
                     }
                 }
             }
-            comparaciones += 1;
+            comparaciones += 2;
             if (algoritmo == 1)
             {
-                comparaciones += 1;
+                // la comparacion de aqui no va por que desde antes se añadio la del elseif y como no se hizo, la uso como si fuera la siguiente
                 if (this._solucion.SequenceEqual(vec))
                 {
                     asignaciones += 1;
@@ -255,63 +256,242 @@ namespace I_Progra_Analisis
                 asignaciones += 1;
                 return true;
             }
-            asignaciones += 1;
-            return true;
+            else
+            {
+                asignaciones += 1;
+                return true;
+            }
         }
-        public void tanteo(int[] vec, int cont)
+        public void tanteo(Pieza[]solucion, List<Pieza>[] listaIzquierda, int cont)
         {
+            Console.WriteLine("empieza");
+            List<Pieza>[] listaAux = new List<Pieza>[9] { new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>(), new List<Pieza>() };
+            asignaciones += 1;
+            comparaciones += 2;
+            if (cont < this._tamaño * this._tamaño)
+            {
+                if ((cont != 0) && (listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1] != null))
+                {
+                    if (cont < this._tamaño)
+                    {
+                        Console.WriteLine(listaIzquierda[(solucion[cont-1].GetLado(0))-1]);
+                        Console.WriteLine(listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1].Count);
+                            int Azopotamadre = listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1].Count;
+                            while (Azopotamadre > 0)
+                            {
+                                Azopotamadre -= 1;
+                                if (listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1].Count != 0)//Osea si hay convinacion
+                                {
+                                    Console.WriteLine("prueba");
+                                    solucion[cont] = listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1][0];
+                                    listaAux[(solucion[cont - 1].GetLado(3)) - 1].Add(listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1][0]);
+                                    listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1].Remove(listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1][0]);
+                                    tanteo(solucion, listaIzquierda, cont + 1);
+                                    return;
+                                }
+                                listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1].Add(solucion[cont]);
+                                listaAux[(solucion[cont - 1].GetLado(3)) - 1].Remove(solucion[cont]);
+                            }
+                        
+                    }
+                    else
+                    {
+                        if ((cont % this._tamaño == 0) && (listaIzquierda[(solucion[cont - 1].GetLado(2)) - 1] != null))
+                        {
+                            //aqui revisa el numero de abajo de la de arriba,
+                            //pero como encuentro ese numero en la ficha
+                            //sera q lo mejor es hacer el for q recorra lo q resta?
+                            for (int i = 0; i < 9; i++)
+                            {
+                                int Azopotamadre = listaIzquierda[i].Count;
+                                while (Azopotamadre > 0)
+                                {
+                                    Azopotamadre -= 1;
+                                    Console.WriteLine((listaIzquierda[i][0].GetLado(0)));
+                                    if ((listaIzquierda[i][0].GetLado(0) == solucion[cont-this._tamaño].GetLado(2)) && (listaIzquierda[(solucion[cont - 1].GetLado(0)) - 1] != null) && (listaIzquierda[(solucion[cont - 1].GetLado(2)) - 1] != null))
+                                    {
+                                        listaAux[i].Add(listaIzquierda[i][0]);
+                                        solucion[cont] = listaIzquierda[i][0];
+                                        listaIzquierda[i].Remove(listaIzquierda[i][0]);
+                                        tanteo(solucion, listaIzquierda, cont + 1);
+                                        return;
+                                    }
+                                    listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1].Add(solucion[cont]);
+                                    listaAux[(solucion[cont - 1].GetLado(3)) - 1].Remove(solucion[cont]);
+                                }
+                            }
+                            //aqui es q no encontró uno con pieza arriba igual
+                        }
+                        else
+                        {
+                            // los 2 verificaciones
+                                int azopotamadre = listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1].Count;
+                                while (azopotamadre > 0)
+                                {
+                                    azopotamadre -= 1;
+                                    if (listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1][0].GetLado(0) == solucion[cont - this._tamaño].GetLado(2))
+                                    {
+                                        //se quita y se pone al final,pero se lleva el azopotamadre
+                                        listaAux[(solucion[cont - 1].GetLado(3)) - 1].Add(listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1][0]);
+                                        solucion[cont] = listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1][0];
+                                        listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1].Remove(listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1][0]);
+                                        tanteo(solucion, listaIzquierda, cont + 1);
+                                        return;
+                                    }
+                                    listaIzquierda[(solucion[cont - 1].GetLado(3)) - 1].Add(solucion[cont]);
+                                    listaAux[(solucion[cont - 1].GetLado(3)) - 1].Remove(solucion[cont]);
+                                }
+                            
+                        }
+                    }
+                        //escoge la siguiente y compara
+                }
+                else
+                {
+                    for (int i = 0; i < 9; i++)
+                    {
+                        int Azopotamadre = listaIzquierda[i].Count;
+                        while (Azopotamadre > 0)
+                        {
+                            Azopotamadre -= 1;
+
+
+                            if (listaIzquierda[i].Count != 0)
+                            {
+                                Console.WriteLine("aassdd");
+                                Pieza piezaActual = (Pieza)listaIzquierda[i][0];
+                                listaAux[i].Add(piezaActual);
+                                solucion[cont] = piezaActual;
+                                listaIzquierda[i].Remove(piezaActual);
+                                tanteo(solucion, listaIzquierda, cont + 1);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < this._tamaño * this._tamaño; i++)
+                {
+                    Console.WriteLine(_solucion[i] + ", ");
+                }
+                Console.WriteLine(".............");
+                for (int i = 0; i < this._tamaño * this._tamaño; i++)
+                {
+                    Console.WriteLine(solucion[i].GetNumero() + ", ");
+                }
+            }
+        }
+        /*public void tanteo2(Pieza[] vec, ArrayList[] listaIzquierda, int cont)
+        {
+<<<<<<< HEAD
             
             ArrayList[] listaIzquierda = new ArrayList[9];
             ArrayList[] listaDerecha = new ArrayList[9];
             //int[] lista1 = new int[this._tamaño * this._tamaño];
             //int[] lista2 = new int[this._tamaño * this._tamaño];
+=======
+            asignaciones += 4;
+>>>>>>> d58beb24729106f8f4bfffbc89c4e2f806076597
             int Azopotamadre = 0;
-            for (int i = 1; i<= this._tamaño * this._tamaño; i++)
-            {
-                Tuple <int,int> posicionPA = GetPosicionNumero(i);
-                Pieza piezaActual = GetPieza(posicionPA.Item1,posicionPA.Item2);
-                int arriba = piezaActual.GetLado(0);
-                int izquierda = piezaActual.GetLado(1);
-                int abajo = piezaActual.GetLado(2);
-                int derecha = piezaActual.GetLado(3);
-                listaIzquierda[izquierda - 1].Add(piezaActual);
-                listaDerecha[derecha-1].Add(piezaActual);
-            }
+            comparaciones += 1;
             if (cont < this._tamaño * this._tamaño)
             {
-                //Azopotamadre = lista.Count;
                 asignaciones += 1;
-                comparaciones += 2;
-                for (int i = cont; Azopotamadre > 0; i++, Azopotamadre--)
+                comparaciones += 1;
+                for (int i = 0; i < 9; i++)
                 {
-
+                    Azopotamadre = listaIzquierda[i].Count;
+                    while (Azopotamadre > 0)
+                    {
+                        Azopotamadre -= 1;
+                        asignaciones += 1;
+                        comparaciones += 2;
+                        if (listaIzquierda[i].Count == 0)
+                        {
+                            asignaciones += 1;
+                            break;
+                        }
+                        vec[cont] = (Pieza)listaIzquierda[i][0]);
+                        listaIzquierda[i].Remove(listaIzquierda[i][0]);
+                        asignaciones += 2;
+                        comparaciones += 1;
+                        if (cont != 0)
+                        {
+                            comparaciones += 1;
+                            if (Comparar(vec, cont, cont + 1, 2))
+                            {
+                                //Console.WriteLine("comparo bien");
+                                descarte(vec, lista, cont + 1);
+                            }
+                            else
+                            {
+                                lista.Add(vec[cont]);
+                                vec[cont] = 0;
+                                asignaciones += 2;
+                            }
+                        }
+                        else
+                        {
+                            //Console.WriteLine("asd");
+                            descarte(vec, lista, cont + 1);
+                        }
+                    }
+                }
+                    
+                comparaciones += 1;
+                if (lista.Count != 0)
+                {
+                    vec[cont] = 0;
+                    //Console.WriteLine("aassdd");
+                    cont -= 1;
+                    lista.Add(vec[cont]);
+                    vec[cont] = 0;
+                    asignaciones += 4;
+                    //descarte(vec, lista, cont);
                 }
             }
+<<<<<<< HEAD
         }
        public void descarte(int[] vec,ArrayList lista, int cont)
         {
             int Azopotamadre = 0;
             asignaciones += 1;
+=======
+            else
+            {
+                Console.WriteLine("fin");
+                for (int j = 0; j < this._tamaño * this._tamaño; j++)
+                {
+                    Console.Write(vec[j] + ",");
+                }
+                Console.WriteLine();
+                Console.WriteLine("Cantidad de asignaciones: " + asignaciones + "\nCantidad de comparaciones: " + comparaciones);
+            }
+        }*/
+        public void descarte(int[] vec,ArrayList lista, int cont)
+        {
+            asignaciones += 4;
+            int Azopotamadre = 0;
             comparaciones += 1;
             if (cont < this._tamaño * this._tamaño)
             {
                 Azopotamadre = lista.Count;
                 asignaciones += 1;
-                comparaciones += 2;
-                for (int i = cont; Azopotamadre > 0; i++,Azopotamadre--)
+                comparaciones += 1;
+                while(Azopotamadre > 0)
                 {
+                    Azopotamadre -= 1;
                     asignaciones += 1;
-                    comparaciones += 1;
+                    comparaciones += 2;
                     if (lista.Count == 0)
                     {
-                        ///////////////////////////////////////////////////////////////////////////////////////break cuenta como asignacion?
                         asignaciones += 1;
                         break;
-
                     }
                     vec[cont] = Convert.ToInt32(lista[0]);
                     lista.Remove(lista[0]);
-                    asignaciones += 1;
+                    asignaciones += 2;
                     comparaciones += 1;
                     if (cont != 0)
                     {
@@ -357,25 +537,26 @@ namespace I_Progra_Analisis
                 Console.WriteLine("Cantidad de asignaciones: "+asignaciones+ "\nCantidad de comparaciones: "+comparaciones);
             }
         }
-
         public bool FuerzaBruta(int[] vec, int k, int n)
         {
+            asignaciones += 4;
             int aux;
-            asignaciones++;
-            comparaciones++;
-            if (k<n)
+            comparaciones += 1;
+            if (k < n)
             {
-                asignaciones += 2;
-                comparaciones++;
-                for (int i=k; i<n; i++)
+                asignaciones += 1;
+                comparaciones += 1;
+                for (int i = k; i < n; i++)
                 {
-                    asignaciones += 3;
+                    asignaciones += 2;
+                    comparaciones += 1;
                     aux = vec[k];
                     vec[k] = vec[i];
                     vec[i] = aux;
+                    asignaciones += 3;
                     if (!FuerzaBruta(vec, k + 1, n))
                     {
-                        asignaciones++;
+                        asignaciones += 1;
                         return false;
                     }
                     else
@@ -384,36 +565,35 @@ namespace I_Progra_Analisis
                         aux = vec[k];
                         vec[k] = vec[i];
                         vec[i] = aux;
-                    }                  
+                        asignaciones += 3;
+                    }
+
                 }
-                asignaciones++;
+                asignaciones += 1;
                 return true;
             }
             else
             {
                 asignaciones++;
                 cont += 1;
-
-                if (Comparar(vec,0,vec.Length,1))
+                asignaciones += 1;
+                comparaciones += 1;
+                if (Comparar(vec, 0, vec.Length, 1))
                 {
-                    Console.WriteLine("Solucion original");
-                    for (int i = 0; i < n; i++)
-                    {
-                        Console.Write(this._solucion[i] + ",");
-                    }
-                    Console.WriteLine();
                     Console.WriteLine("Solucion actual");
                     for (int i = 0; i < n; i++)
                     {
                         Console.Write(vec[i] + ",");
                     }
                     Console.WriteLine();
-                    Console.WriteLine("termino en "+cont);
+                    Console.WriteLine("termino en " + cont);
                     Console.WriteLine("Cantidad de asignaciones: " + asignaciones + "\nCantidad de comparaciones: " + comparaciones);
-                    asignaciones++;
+                    asignaciones += 1;
                     return false;
                 }
-                asignaciones++;
+                //Console.WriteLine("sigue");
+                //Console.WriteLine("Cantidad de asignaciones: " + asignaciones + "\nCantidad de comparaciones: " + comparaciones);
+                asignaciones += 1;
                 return true;
             }
         }
